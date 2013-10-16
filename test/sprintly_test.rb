@@ -18,4 +18,11 @@ describe Sprintly do
     assert items.is_a?(Array), 'items must be an array'
   end
   
+  it 'allows you to set email and api key' do
+    Sprintly.email = 'jonathan@crankapps.com'
+    Sprintly.api_key = 'NG55dyDpFMRWyJeAMgsjN6n2mjw4QWfj'
+
+    puts Sprintly[2752].inspect
+    
+  end
 end

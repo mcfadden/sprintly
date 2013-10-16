@@ -1,18 +1,27 @@
 require 'active_support/inflector'
+require 'active_resource'
 
 module Sprintly
-  class Resource
+  BASE = "https://sprint.ly/api"
+
+  class Resource < ActiveResource::Base
     
     attr_accessor :name, :url
     
+    # self.site = "https://sprint.ly/api/products"
+    self.user = "jonathan@crankapps.com"
+    self.password = "NG55dyDpFMRWyJeAMgsjN6n2mjw4QWfj"
+
+
     def initialize(name, hash={})
       @url = Sprintly::BASE.dup
+      # self.site = url
       append_path! name, hash
     end
     
     def append_path!(element, hash={})
       @url << "/#{element.to_s.pluralize}"
-      ids = hash.select {|item| item =~ /\_id$/ }
+      ids = hash.select { |item| item =~ /\_id$/ }
       @url << "/#{ids.values[0]}" unless ids.empty?
     end
     
