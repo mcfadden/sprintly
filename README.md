@@ -2,7 +2,7 @@
 
 A client for the Sprintly API
 
-[![Build Status](https://secure.travis-ci.org/colinyoung/sprintly.png?branch=master)](https://travis-ci.org/colinyoung/sprintly)
+[![Build Status](https://secure.travis-ci.org/copyhacker/sprintly.png?branch=master)](https://travis-ci.org/copyhacker/sprintly)
 
 ## Installation
 
