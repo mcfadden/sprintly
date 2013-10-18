@@ -23,13 +23,17 @@ Or install it yourself as:
 1. Configure with your API KEY:
 
   ```ruby
-  Sprintly.api_key = 'sample api key'
+  Sprintly.configure do |config|
+    config.site = 'https://sprint.ly/api'
+    config.email = "me@email.com"
+    config.api_key = "THIS-SPACE-LEFT-BLANK"
+  end
   ```
   
 2. Access resources:
 
   ```ruby
-  items = Sprintly::Product['99999'].items
+  items = Sprintly::Product[99999].items
   
   # You can pass a hash of parameters to resource methods like 'items'.
   # Incidentally, it's dynamic, so if Sprintly adds resources to their API, this will still work.
