@@ -10,10 +10,15 @@ Gem::Specification.new do |gem|
   
   gem.add_development_dependency 'jazz_hands'
   gem.add_development_dependency 'minitest'
+  gem.add_development_dependency('rspec')
+  # gem.add_development_dependency 'mocha'
+  gem.add_development_dependency('fakeweb')
+  gem.add_development_dependency('faker')
   gem.add_dependency 'rake'
   gem.add_dependency 'activesupport', '~> 4.0'
   gem.add_dependency 'activeresource', '~> 4.0'
   gem.add_dependency 'rest-client'
+
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

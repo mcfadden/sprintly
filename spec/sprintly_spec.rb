@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require 'mocha'
 require 'sprintly'
 require 'pry'
 require 'pry-debugger'
@@ -14,15 +15,14 @@ describe Sprintly do
   #   assert_equal Sprintly['0'], Sprintly::Product['0']
   # end
   
+  describe Sprintly::Resource do
+    it 'parses element names' do
+      Sprintly::Resource.expect(:name).and_return("Test::Namespace::ElementName")
+      Sprintly::Resource.element_name.should == 'element_names'
+    end
+  end
+
   describe Sprintly::Product do
-
-    # before { @product = Sprintly::Product[2752] }
-
-    # it 'allows you to get the items' do
-    #   # product = Sprintly::Product['0']
-    #   items = @product.items :type => 'story'
-    #   assert items.is_a?(Array), 'items must be an array'
-    # end
     before do
       Sprintly.configure do |config|
         config.site = 'https://sprint.ly/api'
@@ -31,11 +31,16 @@ describe Sprintly do
       end
     end
 
-    it 'should have items' do
+    it 'should have a name' do
       @product = Sprintly::Product[2752]
-      assert !@product.items.nil?
+      # assert_equal 'Jib mom', @product.name
+      @product.name.should == 'Jib mom'
     end
 
+    it 'should have items' do
+      @product = Sprintly::Product[2752]
+      @product.items.should_not be_nil
+    end
   end
 
   # describe 'config' do

@@ -3,8 +3,6 @@ require 'active_resource'
 
 
 module Sprintly
-  # BASE = "https://sprint.ly/api"
-
   class Resource < ActiveResource::Base
     class << self
       alias_method :[], :find
