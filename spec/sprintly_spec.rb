@@ -1,8 +1,4 @@
-require 'minitest/autorun'
-require 'mocha'
-require 'sprintly'
-require 'pry'
-require 'pry-debugger'
+require 'spec_helper'
 
 describe Sprintly do
   
@@ -17,55 +13,31 @@ describe Sprintly do
   
   describe Sprintly::Resource do
     it 'parses element names' do
-      Sprintly::Resource.expect(:name).and_return("Test::Namespace::ElementName")
+      Sprintly::Resource.should_receive(:name).and_return("Test::Namespace::ElementName")
       Sprintly::Resource.element_name.should == 'element_names'
     end
   end
 
-  describe Sprintly::Product do
+  describe Sprintly::Product, :fake_resource do
     before do
       Sprintly.configure do |config|
         config.site = 'https://sprint.ly/api'
-        config.email = "jonathan@crankapps.com"
-        config.api_key = "NG55dyDpFMRWyJeAMgsjN6n2mjw4QWfj"
+        config.email = "bobvance" # Sprintly wants email addresses, which fakeweb does not like in userinfo strings
+        config.api_key = "THIS-SPACE-LEFT-BLANK"
       end
+
+      FakeWeb.register_uri(:get, "#{test_domain}/api/products/42.json", body: product_response)
+
+      @product = Sprintly::Product[42]
     end
 
     it 'should have a name' do
-      @product = Sprintly::Product[2752]
-      # assert_equal 'Jib mom', @product.name
-      @product.name.should == 'Jib mom'
+      @product.name.should == 'My Web Site'
     end
 
     it 'should have items' do
-      @product = Sprintly::Product[2752]
+      FakeWeb.register_uri(:get, "#{test_domain}/api/products/42/items.json", body: items_response)      
       @product.items.should_not be_nil
     end
   end
-
-  # describe 'config' do
-  #   before do
-  #     Sprintly.configure do |config|
-
-  #       # binding.pry
-
-  #       config.site = 'http://test.com'
-  #       config.email = 'bob@loblaw.com'
-  #       config.api_key = 'THIS SPACE LEFT BLANK'
-
-  #       # config.site = 'https://sprint.ly/api'
-  #       # config.email = "jonathan@crankapps.com"
-  #       # config.api_key = "NG55dyDpFMRWyJeAMgsjN6n2mjw4QWfj"
-
-  #     end
-  #   end
-
-  #   it 'should set the values properly' do
-  #     @product = Sprintly::Product[2752]
-
-  #     assert_equal 'https://sprint.ly/api/', @product.class.site
-  #     assert_equal 'bob@loblaw.com', @product.class.user
-  #     assert_equal 'THIS SPACE LEFT BLANK', @product.class.password
-  #   end
-  # end
 end

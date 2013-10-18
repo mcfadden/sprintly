@@ -1,19 +1,20 @@
 $:.unshift File.expand_path('../lib', File.dirname(__FILE__))
 
+require 'sprintly'
+
 require 'bundler'
 Bundler.require(:default, :development)
 
+require 'fakeweb'
 require 'support/fake_resource'
+require 'support/fixtures'
 require 'pry'
+require 'pry-debugger'
+
 
 # FactoryGirl.find_definitions
 ActiveResource::Base.send :include, ActiveResource::FakeResource
 FakeWeb.allow_net_connect = false
-
-# Chargify.configure do |c|
-#   c.subdomain = 'test'
-#   c.api_key   = 'test'
-# end
 
 RSpec.configure do |config|
   config.filter_run :focused => true
@@ -34,5 +35,6 @@ RSpec.configure do |config|
 end
 
 def test_domain
-  "#{Chargify::Base.connection.site.scheme}://#{Chargify::Base.connection.user}:#{Chargify::Base.connection.password}@#{Chargify::Base.connection.site.host}:#{Chargify::Base.connection.site.port}"
+  "#{Sprintly::Resource.connection.site.scheme}://#{Sprintly::Resource.connection.user}:#{Sprintly::Resource.connection.password}@#{Sprintly::Resource.connection.site.host}:#{Sprintly::Resource.connection.site.port}"
+  # "http://#{Sprintly::Resource.connection.user}:#{Sprintly::Resource.connection.password}@#{Sprintly::Resource.connection.site.host}"
 end
