@@ -2,11 +2,11 @@
 require File.expand_path('../lib/sprintly/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.authors       = ["Colin Young"]
-  gem.email         = ["me@colinyoung.com"]
+  gem.authors       = %w{ Jonathan Vaught Colin Young }
+  gem.email         = %w{ jonathan.vaught@gmail.com me@colinyoung.com }
   gem.description   = %q{The Sprintly API - pow! Straight to your ruby app}
   gem.summary       = %q{A convenience wrapper for the Sprintly HTTP API.}
-  gem.homepage      = "https://github.com/colinyoung/sprintly"
+  gem.homepage      = "https://github.com/copyhacker/sprintly"
   
   gem.add_development_dependency 'jazz_hands'
   gem.add_development_dependency 'rspec'
@@ -18,8 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'activesupport', '~> 4.0'
   gem.add_runtime_dependency 'activeresource', '~> 4.0'
   gem.add_runtime_dependency 'rest-client'
-
-
+  
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
