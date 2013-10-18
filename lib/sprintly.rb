@@ -1,22 +1,18 @@
 require "sprintly/version"
+require "sprintly/resource"
 require "sprintly/product"
-require "sprintly/configuration"
+# require "sprintly/configuration"
 
 module Sprintly
   class << self
-    def config
-      @config ||= Configuration.new
-    end
+    attr_accessor :site, :email, :api_key
 
-    def email=(email)
-      config.email = email
+    def configure
+      yield self
+      Resource.site     = site || "https://sprint.ly/api"
+      Resource.user     = email
+      Resource.password = api_key
     end
-
-    def api_key=(api_key)
-      config.api_key = api_key
-    end
-
-    # delegate :email, :api_key, to: :config
 
     def [](product_id)
       Sprintly::Product[product_id]
