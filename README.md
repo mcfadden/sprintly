@@ -35,8 +35,7 @@ Or install it yourself as:
   ```ruby
   items = Sprintly::Product[99999].items
   
-  # You can pass a hash of parameters to resource methods like 'items'.
-  # Incidentally, it's dynamic, so if Sprintly adds resources to their API, this will still work.
+  # You can pass a hash of parameters to resource methods like 'items'
   ```
   
 3. 
