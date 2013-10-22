@@ -7,9 +7,8 @@ module Sprintly
       self.prefix = "/api/products/:product_id/"
     end
 
-    def items(scope = :all)
-      # binding.pry
-      @items = Item.find(scope, params: { product_id: self.id })
+    def items(query = {})
+      @items = Item.find(:all, params: { product_id: self.id }.merge(query))
     end
   end
 end

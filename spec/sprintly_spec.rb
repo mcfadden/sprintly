@@ -22,7 +22,7 @@ describe Sprintly do
     before do
       Sprintly.configure do |config|
         config.site = 'https://sprint.ly/api'
-        config.email = "bobvance" # Sprintly wants email addresses, which fakeweb does not like in userinfo strings
+        config.email = "bobvance" # Sprintly wants email addresses, which FakeWeb does not like in userinfo strings
         config.api_key = "THIS-SPACE-LEFT-BLANK"
       end
 
@@ -36,8 +36,13 @@ describe Sprintly do
     end
 
     it 'should have items' do
-      FakeWeb.register_uri(:get, "#{test_domain}/api/products/42/items.json", body: items_response)      
+      FakeWeb.register_uri(:get, "#{test_domain}/api/products/42/items.json", body: items_response)
       @product.items.should_not be_nil
+    end
+
+    it 'should pass params through to the endpoint' do
+      FakeWeb.register_uri(:get, "#{test_domain}/api/products/42/items.json?status=backlog", body: items_response)
+      @product.items(status: 'backlog').should_not be_nil
     end
   end
 end
