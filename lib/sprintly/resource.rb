@@ -11,6 +11,13 @@ module Sprintly
         name.split(/::/).last.underscore.pluralize
       end
     end
+      
+    def to_json(options = nil)
+      # This is terrible. So terrible. I'm sorry. But sprint.ly's API expects
+      # the post body to be a query string and not a JSON object. Take it up
+      # with them. Please.
+      self.attributes.to_query
+    end
 
     # def initialize(name, hash={})
 
